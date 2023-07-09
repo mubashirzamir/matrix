@@ -3,7 +3,7 @@ import Typo from "typo-js";
 import {NextRequest, NextResponse} from "next/server";
 
 const dictionary = new Typo('en_US', false, false, {
-    dictionaryPath: 'node_modules/typo-js/dictionaries'
+    dictionaryPath: 'public/dictionaries'
 })
 
 const isValidWord = (word: string): boolean => dictionary.check(word)
