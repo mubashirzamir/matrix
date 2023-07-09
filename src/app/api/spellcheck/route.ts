@@ -1,9 +1,8 @@
-// @ts-ignore
 import Typo from "typo-js";
 import {NextRequest, NextResponse} from "next/server";
 
-const dictionary = new Typo('en_US', false, false, {
-    dictionaryPath: 'public/dictionaries'
+const dictionary = new Typo('en_US', null, null, {
+    dictionaryPath: 'src/app/api/spellcheck/dictionaries'
 })
 
 const isValidWord = (word: string): boolean => dictionary.check(word)
