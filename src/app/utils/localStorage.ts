@@ -1,3 +1,5 @@
+'use client'
+
 import {GAME_STATE_KEY, GAME_STATISTICS_KEY} from "@/app/utils/constants";
 import {GameStats} from "@/app/utils/stats";
 
