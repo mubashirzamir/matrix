@@ -1,5 +1,4 @@
 import {UAParser} from 'ua-parser-js'
-import {GAME_TITLE} from "@/app/utils/constants";
 
 const webShareApiDeviceTypes: string[] = ['mobile', 'smarttv', 'wearable']
 const parser = new UAParser()
@@ -10,7 +9,7 @@ export const shareStatus = (
     day: number,
     solution: string
 ) => {
-    const textToShare = `${GAME_TITLE} ${day} \n\n` + generateEmojiGrid(solution)
+    const textToShare = `MATRIX ${day} \n\n` + generateEmojiGrid(solution)
     const shareData = {text: textToShare}
     let shareSuccess = false
 
