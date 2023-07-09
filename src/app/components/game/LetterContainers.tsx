@@ -1,0 +1,34 @@
+import React from "react"
+import Letter from "@/app/components/game/Letter"
+
+interface LetterContainersProps {
+    letters: string[]
+    selectionHandler?: (letter: string, id: number) => void
+    selectedLetterIds?: number[]
+    fromAnswerRow?: boolean
+}
+
+const LetterContainers: React.FC<LetterContainersProps> = (props) => {
+    const {letters, fromAnswerRow} = props
+
+    return (
+        <>
+            {
+                letters.map((letter, index) =>
+                    <div
+                        key={index}
+                        className={`justify-center items-center border-white ${fromAnswerRow ? 'w-6 h-6' : 'w-14 h-14 border-2'}`}
+                    >
+                        <Letter
+                            letter={letter}
+                            id={index}
+                            {...props}
+                        />
+                    </div>
+                )
+            }
+        </>
+    )
+}
+
+export default LetterContainers
