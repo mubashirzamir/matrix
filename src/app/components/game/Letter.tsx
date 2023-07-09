@@ -3,8 +3,9 @@ import React, {useEffect, useState} from "react";
 interface LetterProps {
     letter: string
     id: number
-    selectionHandler?: (letter: string, id: number) => void
-    selectedLetterIds?: number[]
+    selectionHandler: (letter: string, id: number) => void
+    selectedLetterIds: number[]
+    submittedWord: string
 }
 
 const Letter: React.FC<LetterProps> = (props) => {
@@ -12,20 +13,28 @@ const Letter: React.FC<LetterProps> = (props) => {
         letter,
         id,
         selectionHandler,
-        selectedLetterIds
+        selectedLetterIds,
+        submittedWord,
     } = props
 
     const [selected, setSelected] = useState<boolean>(false)
 
     useEffect(() => {
-        if (selectedLetterIds && selectedLetterIds.length === 0) {
+        if (selectedLetterIds.length === 0) {
             setSelected(false)
         }
+
+        if (selectedLetterIds.includes(id)) {
+            setSelected(true)
+        }
+
     }, [selectedLetterIds])
 
     const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        selectionHandler && selectionHandler(letter, id)
-        setSelected(true)
+        if (submittedWord.length === 0) {
+            selectionHandler && selectionHandler(letter, id)
+            setSelected(true)
+        }
     }
 
     return (

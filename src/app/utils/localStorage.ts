@@ -4,6 +4,7 @@ import {GameStats} from "@/app/utils/stats";
 export type StoredGameState = {
     day: number
     answer: string
+    letterIds: number[]
 }
 
 export const loadStatsFromLocalStorage = () => {

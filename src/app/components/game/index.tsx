@@ -22,16 +22,21 @@ export default function Game() {
     useEffect(() => {
         if (dayIndexForToday === loaded?.day) {
             setSubmittedWord(loaded.answer)
+            setSelectedLetterIds(loaded.letterIds)
         }
     }, [])
 
     useEffect(() => {
         if (submittedWord.length > 0) {
-            saveGameStateToLocalStorage({day: dayIndexForToday, answer: submittedWord})
+            saveGameStateToLocalStorage({day: dayIndexForToday, answer: submittedWord, letterIds: selectedLetterIds})
         }
     }, [submittedWord])
 
     const selectionHandler = (letter: string, id: number) => {
+        if (submittedWord.length > 0) {
+            return
+        }
+
         if (selectedLetterIds.length === 16) {
             return
         }
@@ -83,12 +88,13 @@ export default function Game() {
     return (
         <>
             <div className="grid grid-cols-1">
-                <AnswerRow selectedLetters={submittedWord ? submittedWord : getSelectedLetters()}/>
+                <AnswerRow selectedLetters={getSelectedLetters()}/>
                 <div className="my-6"></div>
                 <OptionGrid
                     letters={wordSetToday}
                     selectionHandler={selectionHandler}
                     selectedLetterIds={selectedLetterIds}
+                    submittedWord={submittedWord}
                 />
                 <div className="my-6"></div>
                 <div className="grid grid-cols-2 gap-4 justify-self-center">
