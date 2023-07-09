@@ -8,20 +8,20 @@ export type StoredGameState = {
 
 export const loadStatsFromLocalStorage = () => {
     if (typeof window !== 'undefined') {
-        const stats = localStorage.getItem(GAME_STATISTICS_KEY)
+        const stats = window.localStorage.getItem(GAME_STATISTICS_KEY)
         return stats ? (JSON.parse(stats) as GameStats) : null
     }
 }
 
 export const saveStatsToLocalStorage = (gameStats: GameStats) => {
     if (typeof window !== 'undefined') {
-        localStorage.setItem(GAME_STATISTICS_KEY, JSON.stringify(gameStats))
+        window.localStorage.setItem(GAME_STATISTICS_KEY, JSON.stringify(gameStats))
     }
 }
 
 export const loadGameStateFromLocalStorage = (dayIndex: number) => {
     if (typeof window !== 'undefined') {
-        const state = localStorage.getItem(GAME_STATE_KEY)
+        const state = window.localStorage.getItem(GAME_STATE_KEY)
         return state ? (JSON.parse(state) as StoredGameState) : null
     }
 
@@ -30,6 +30,6 @@ export const loadGameStateFromLocalStorage = (dayIndex: number) => {
 
 export const saveGameStateToLocalStorage = (gameState: StoredGameState) => {
     if (typeof window !== 'undefined') {
-        localStorage.setItem(GAME_STATE_KEY, JSON.stringify(gameState))
+        window.localStorage.setItem(GAME_STATE_KEY, JSON.stringify(gameState))
     }
 }
