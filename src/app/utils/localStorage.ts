@@ -7,8 +7,10 @@ export type StoredGameState = {
 }
 
 export const loadStatsFromLocalStorage = () => {
-    const stats = localStorage.getItem(GAME_STATISTICS_KEY)
-    return stats ? (JSON.parse(stats) as GameStats) : null
+    if (typeof window !== 'undefined') {
+        const stats = localStorage.getItem(GAME_STATISTICS_KEY)
+        return stats ? (JSON.parse(stats) as GameStats) : null
+    }
 }
 
 export const saveStatsToLocalStorage = (gameStats: GameStats) => {
@@ -27,5 +29,7 @@ export const loadGameStateFromLocalStorage = (dayIndex: number) => {
 }
 
 export const saveGameStateToLocalStorage = (gameState: StoredGameState) => {
-    localStorage.setItem(GAME_STATE_KEY, JSON.stringify(gameState))
+    if (typeof window !== 'undefined') {
+        localStorage.setItem(GAME_STATE_KEY, JSON.stringify(gameState))
+    }
 }
