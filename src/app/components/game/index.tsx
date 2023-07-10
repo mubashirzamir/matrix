@@ -15,14 +15,16 @@ export default function Game() {
     const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
     const [stats, setStats] = useState(() => loadStats())
     const [submitted, setSubmitted] = useState<boolean>(false)
+    const [loading, setLoading] = useState(false)
+
     const wordSetToday = WORD_SET[getDayIndexForToday()]
     const dayIndexForToday: number = getDayIndexForToday()
-    const loaded = loadGameStateFromLocalStorage(dayIndexForToday)
+    const gameState = loadGameStateFromLocalStorage(dayIndexForToday)
 
     useEffect(() => {
-        if (dayIndexForToday === loaded?.day) {
+        if (dayIndexForToday === gameState?.day) {
             setSubmitted(true)
-            setSelectedLetterIds(loaded.letterIds)
+            setSelectedLetterIds(gameState.letterIds)
         }
     }, [])
 
@@ -66,7 +68,9 @@ export default function Game() {
             return
         }
 
+        setLoading(true)
         await fetchIsValidWord(getSelectedLetters())
+        setLoading(false)
     }
 
     const fetchIsValidWord = async (word: string) => {
@@ -92,8 +96,8 @@ export default function Game() {
 
     return (
         <>
-            <div className="grid grid-cols-1">
-                <AnswerRow selectedLetters={getSelectedLetters()}/>
+            <div className={`grid grid-cols-1 {${loading && 'pointer-events-none'}`}>
+                <AnswerRow selectedLetters={getSelectedLetters()} loading={loading}/>
                 <div className="my-6"></div>
                 <OptionGrid
                     letters={wordSetToday}
@@ -103,7 +107,7 @@ export default function Game() {
                 />
                 <div className="my-6"></div>
                 <div className="grid grid-cols-2 gap-4 justify-self-center">
-                    {submitted &&
+                    {!submitted &&
                         <>
                             <ActionButton type="CLEAR" handler={clearHandler}/>
                             <ActionButton type="SUBMIT" handler={submitHandler}/>
