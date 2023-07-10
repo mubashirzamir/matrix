@@ -96,7 +96,7 @@ export default function Game() {
 
     return (
         <>
-            <div className={`grid grid-cols-1 {${loading && 'pointer-events-none'}`}>
+            <div className={`grid grid-cols-1 ${loading ? 'pointer-events-none' : ''}`}>
                 <AnswerRow selectedLetters={getSelectedLetters()} loading={loading}/>
                 <div className="my-6"></div>
                 <OptionGrid
