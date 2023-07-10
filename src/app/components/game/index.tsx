@@ -14,26 +14,30 @@ export default function Game() {
     const [selectedLetterIds, setSelectedLetterIds] = useState<number[]>([])
     const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
     const [stats, setStats] = useState(() => loadStats())
-    const [submittedWord, setSubmittedWord] = useState<string>('')
+    const [submitted, setSubmitted] = useState<boolean>(false)
     const wordSetToday = WORD_SET[getDayIndexForToday()]
     const dayIndexForToday: number = getDayIndexForToday()
     const loaded = loadGameStateFromLocalStorage(dayIndexForToday)
 
     useEffect(() => {
         if (dayIndexForToday === loaded?.day) {
-            setSubmittedWord(loaded.answer)
+            setSubmitted(true)
             setSelectedLetterIds(loaded.letterIds)
         }
     }, [])
 
     useEffect(() => {
-        if (submittedWord.length > 0) {
-            saveGameStateToLocalStorage({day: dayIndexForToday, answer: submittedWord, letterIds: selectedLetterIds})
+        if (submitted) {
+            saveGameStateToLocalStorage({
+                day: dayIndexForToday,
+                answer: getSelectedLetters(),
+                letterIds: selectedLetterIds
+            })
         }
-    }, [submittedWord])
+    }, [submitted])
 
     const selectionHandler = (letter: string, id: number) => {
-        if (submittedWord.length > 0) {
+        if (submitted) {
             return
         }
 
@@ -58,6 +62,7 @@ export default function Game() {
 
     const submitHandler = async () => {
         if (getSelectedLetters().length < 3) {
+            clearHandler()
             return
         }
 
@@ -73,7 +78,7 @@ export default function Game() {
             const isValid = data.isValid
 
             if (isValid) {
-                setSubmittedWord(word)
+                setSubmitted(true)
                 setStats(addStatsForCompletedGame(stats, word, dayIndexForToday))
                 setShowSuccessModal(true)
             } else {
@@ -94,11 +99,11 @@ export default function Game() {
                     letters={wordSetToday}
                     selectionHandler={selectionHandler}
                     selectedLetterIds={selectedLetterIds}
-                    submittedWord={submittedWord}
+                    submitted={submitted}
                 />
                 <div className="my-6"></div>
                 <div className="grid grid-cols-2 gap-4 justify-self-center">
-                    {submittedWord.length === 0 &&
+                    {submitted &&
                         <>
                             <ActionButton type="CLEAR" handler={clearHandler}/>
                             <ActionButton type="SUBMIT" handler={submitHandler}/>

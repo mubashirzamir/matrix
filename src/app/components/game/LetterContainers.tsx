@@ -5,7 +5,7 @@ interface LetterContainersProps {
     letters: string[]
     selectionHandler: (letter: string, id: number) => void
     selectedLetterIds: number[]
-    submittedWord: string
+    submitted: boolean
 }
 
 const LetterContainers: React.FC<LetterContainersProps> = (props) => {

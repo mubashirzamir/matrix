@@ -5,7 +5,7 @@ interface OptionGridProps {
     letters: string[]
     selectionHandler: (letter: string, id: number) => void
     selectedLetterIds: number[]
-    submittedWord: string
+    submitted: boolean
 }
 
 const OptionGrid: React.FC<OptionGridProps> = (props) => {

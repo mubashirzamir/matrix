@@ -5,7 +5,7 @@ interface LetterProps {
     id: number
     selectionHandler: (letter: string, id: number) => void
     selectedLetterIds: number[]
-    submittedWord: string
+    submitted: boolean
 }
 
 const Letter: React.FC<LetterProps> = (props) => {
@@ -14,7 +14,7 @@ const Letter: React.FC<LetterProps> = (props) => {
         id,
         selectionHandler,
         selectedLetterIds,
-        submittedWord,
+        submitted,
     } = props
 
     const [selected, setSelected] = useState<boolean>(false)
@@ -31,7 +31,7 @@ const Letter: React.FC<LetterProps> = (props) => {
     }, [selectedLetterIds])
 
     const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if (submittedWord.length === 0) {
+        if (!submitted) {
             selectionHandler && selectionHandler(letter, id)
             setSelected(true)
         }
