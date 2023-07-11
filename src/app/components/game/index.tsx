@@ -14,6 +14,7 @@ export default function Game() {
     const [selectedLetterIds, setSelectedLetterIds] = useState<number[]>([])
     const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
     const [stats, setStats] = useState(() => loadStats())
+    const [gameStateLoaded, setGameStateLoaded] = useState<boolean>(false)
     const [submitted, setSubmitted] = useState<boolean>(false)
     const [loading, setLoading] = useState(false)
 
@@ -26,6 +27,7 @@ export default function Game() {
             setSubmitted(true)
             setSelectedLetterIds(gameState.letterIds)
         }
+        setGameStateLoaded(true)
     }, [])
 
     useEffect(() => {
@@ -96,7 +98,8 @@ export default function Game() {
 
     return (
         <>
-            <div className={`grid grid-cols-1 ${loading ? 'pointer-events-none' : ''}`}>
+            <div
+                className={`grid grid-cols-1 ${gameStateLoaded ? '' : 'hidden'} ${loading ? 'pointer-events-none' : ''}`}>
                 <AnswerRow selectedLetters={getSelectedLetters()} loading={loading}/>
                 <div className="my-6"></div>
                 <OptionGrid
