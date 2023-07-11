@@ -1,6 +1,4 @@
 import React from "react";
-import {Simulate} from "react-dom/test-utils";
-import dragOver = Simulate.dragOver;
 
 interface AnswerRowProps {
     selectedLetters: string
