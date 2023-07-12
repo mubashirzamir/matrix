@@ -16,7 +16,7 @@ export default function Game() {
     const [stats, setStats] = useState(() => loadStats())
     const [gameStateLoaded, setGameStateLoaded] = useState<boolean>(false)
     const [submitted, setSubmitted] = useState<boolean>(false)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const wordSetToday = WORD_SET[getDayIndexForToday()]
     const dayIndexForToday: number = getDayIndexForToday()
@@ -57,9 +57,7 @@ export default function Game() {
     }
 
     const getSelectedLetters = () => {
-        let selectedLetters: string[] = []
-        selectedLetterIds.map(id => selectedLetters.push(wordSetToday[id]))
-        return selectedLetters.join('')
+        return selectedLetterIds.map(id => wordSetToday[id]).join('')
     }
 
     const clearHandler = () => setSelectedLetterIds([])
