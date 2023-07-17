@@ -22,7 +22,7 @@ export const addStatsForCompletedGame = (stats: GameStats, word: string, dayInde
     stats.totalGames += 1
     stats.totalWordLengths += wordLength
     stats.wordHistory.push({day: dayIndex, word: word})
-    stats.average = stats.totalWordLengths / stats.totalGames
+    stats.average = Number((stats.totalWordLengths / stats.totalGames).toFixed(2))
     stats.wordDistribution[wordLength - 1] += 1
 
     saveStatsToLocalStorage(stats)
