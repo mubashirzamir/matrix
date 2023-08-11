@@ -115,9 +115,6 @@ export default function Game() {
                         </>
                     }
                 </div>
-                <div className="mt-6 justify-self-center">
-                    Faateh - Do you like it?
-                </div>
             </div>
             <div>
                 <SuccessModal
